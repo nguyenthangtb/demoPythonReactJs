@@ -119,10 +119,16 @@ def userUpdate(id):
 @app.route("/user/<id>", methods=["DELETE"])
 def userDelete(id):
     data = User.query.get(id)
+    # try:
+    #     pass
+    # except expression as identifier:
+    #     pass
     db.session.delete(data)
-
     db.session.commit()
-    return user_schema.jsonify(data)
+    return jsonify({
+        "status": 200,
+        "mesg": "Deleted success!"
+    })
 
 
 #Check username is unique

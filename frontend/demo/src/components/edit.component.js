@@ -44,6 +44,7 @@ export default class Edit extends Component {
             .catch(function (error) {
                 console.log(error);
             })
+            this.props.history.push('/user');
     }
 
     onChangeusername(e) {

@@ -103,3 +103,12 @@ body {
 .btn-cancel{
   margin-right: 5px;
 }
+
+.btn-delete{
+  cursor: pointer;
+  color: #007bff;
+  font-style: normal;
+}
+.btn-delete:hover{
+  text-decoration: underline;
+}

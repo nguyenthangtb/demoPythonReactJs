@@ -5,13 +5,16 @@ import axios from 'axios'
 class TableRow extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.delete = this.delete.bind(this);
     }
+
     delete() {
         axios.delete('http://127.0.0.1:5000/user/' + this.props.obj.id)
-            .then(console.log('Deleted'))
-            .catch(err => console.log(err))
+            .then(res => {
+                if (res.data.status === 200) {
+                    alert(res.data.mesg);
+                }
+            }).catch(err => console.log(err))
     }
 
     render() {
@@ -37,7 +40,7 @@ class TableRow extends Component {
                     <Link to={"/edit/" + this.props.obj.id} className="fa-pencil">Edit</Link>
                 </td>
                 <td>
-                    <i className="fa" onClick={this.delete} >Delete</i>
+                    <i className="btn-delete" onClick={this.delete} >Delete</i>
                 </td>
             </tr>
         );

@@ -90,9 +90,9 @@ export default class Create extends Component {
         };
         axios.post('http://127.0.0.1:5000/user', obj)
             .then(res => console.log(res.data));
+            
             this.props.history.push('/user');
 
-            
         this.setState({
             username: '',
             name: '',
