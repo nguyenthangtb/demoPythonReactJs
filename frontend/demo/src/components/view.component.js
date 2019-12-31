@@ -29,6 +29,8 @@ export default class Edit extends Component {
                     devices: response.data.devices,
                     organization: response.data.organization
                 });
+
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -37,7 +39,7 @@ export default class Edit extends Component {
 
     render() {
         return (
-            <div style={{ marginTop: 10 }}>
+            <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <h3>User Info</h3>
 
                 {/* <nav className="navbar navbar-light bg-light" style={{ marginBottom:10}}>

@@ -90,7 +90,9 @@ export default class Create extends Component {
         };
         axios.post('http://127.0.0.1:5000/user', obj)
             .then(res => console.log(res.data));
+            this.props.history.push('/user');
 
+            
         this.setState({
             username: '',
             name: '',
@@ -105,8 +107,8 @@ export default class Create extends Component {
 
     render() {
         return (
-            <div style={{ marginTop: 10 }}>
-                <h3>Add New Person</h3>
+            <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <h3>Add New</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>ID <span className="bm-requied">*</span>: </label>

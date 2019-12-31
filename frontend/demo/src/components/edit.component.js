@@ -109,13 +109,13 @@ export default class Edit extends Component {
         axios.put('http://127.0.0.1:5000/user/' + this.props.match.params.id, obj)
             .then(res => console.log(res.data));
 
-        this.props.history.push('/index');
+        this.props.history.push('/user');
     }
 
     render() {
         return (
-            <div style={{ marginTop: 10 }}>
-                <h3 align="center">Update User Info</h3>
+            <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <h3>Update User Info</h3>
                 <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                         <label>ID <span className="bm-requied">*</span>: </label>
@@ -161,9 +161,16 @@ export default class Edit extends Component {
                         value={this.state.organization} onChange={this.onChangeorganization}/>
                     </div>
                     <div className="form-group">
+
+                    <input type="button"
+                            value="Cancel"
+                            className="btn btn-secondary btn-cancel" />
+
                         <input type="submit"
                             value="User update"
                             className="btn btn-primary" />
+
+                            
                     </div>
                 </form>
             </div>

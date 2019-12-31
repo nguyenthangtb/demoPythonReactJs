@@ -26,9 +26,9 @@ export default class Index extends Component {
 
     render() {
         return (
-            <div>
+            <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <nav className="navbar navbar-light bg-light">
-                    <span className="navbar-brand">Users List</span>
+                    <strong className="">USER LIST</strong>
                     <div className="form-inline">
                         <a href={'create'} className="btn btn-primary">Create</a>
                     </div>

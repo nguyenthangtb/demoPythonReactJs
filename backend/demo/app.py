@@ -133,6 +133,19 @@ def userDelete(id):
 #     print(input)
 
 
+#test status
+
+@app.route("/user/status", methods=["GET"])
+def checkUserNameUnique():
+     return jsonify(
+        {
+            "status":200,
+            "mesg": "success"
+        }
+    )
+
+
+
 # run server
 if __name__ == '__main__':
     app.run(debug=True)
