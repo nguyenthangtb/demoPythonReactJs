@@ -9,7 +9,7 @@ class TableRow extends Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-        axios.delete('https://fakerestapi.azurewebsites.net/api/Books/' + this.props.obj.ID)
+        axios.delete('http://127.0.0.1:5000/user/' + this.props.obj.id)
             .then(console.log('Deleted'))
             .catch(err => console.log(err))
     }
@@ -18,24 +18,23 @@ class TableRow extends Component {
         return (
             <tr>
                 <td>
+                    <Link to={"/view/" + this.props.obj.id} className="fa-pencil">{this.props.obj.username}</Link>
+                </td>
+                <td>
+                    {this.props.obj.name}
+                </td>
+                <td>
+                    {this.props.obj.email}
+                </td>
+                <td>
+                    {this.props.obj.devices}
+                </td>
+                <td>
+                    {this.props.obj.organization}
+                </td>
 
-                    {this.props.obj.ID}
-                </td>
                 <td>
-                    <Link to={"/view/" + this.props.obj.ID} className="fa-pencil">{this.props.obj.Title}</Link>
-                </td>
-                <td>
-                    {this.props.obj.Description}
-                </td>
-                <td>
-                    {this.props.obj.PageCount}
-                </td>
-                <td>
-                    {this.props.obj.PublishDate}
-                </td>
-
-                <td>
-                    <Link to={"/edit/" + this.props.obj.ID} className="fa-pencil">Edit</Link>
+                    <Link to={"/edit/" + this.props.obj.id} className="fa-pencil">Edit</Link>
                 </td>
                 <td>
                     <i className="fa" onClick={this.delete} >Delete</i>

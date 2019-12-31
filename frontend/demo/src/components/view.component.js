@@ -5,21 +5,29 @@ export default class Edit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Title: '',
+            username: '',
+            name: '',
             Description: '',
-            PageCount: '',
-            Excerpt: '',
+            email: '',
+            password: '',
+            passcode: '',
+            devices: '',
+            organization: '',
         }
     }
 
     componentDidMount() {
-        axios.get('https://fakerestapi.azurewebsites.net/api/Books/' + this.props.match.params.id)
+        axios.get('http://127.0.0.1:5000/user/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
-                    Title: response.data.Title,
-                    Description: response.data.Description,
-                    PageCount: response.data.PageCount,
-                    Excerpt: response.data.Excerpt
+                    username: response.data.username,
+                    name: response.data.name,
+                    description: response.data.description,
+                    email: response.data.email,
+                    password: response.data.password,
+                    passcode: response.data.passcode,
+                    devices: response.data.devices,
+                    organization: response.data.organization
                 });
             })
             .catch(function (error) {
@@ -31,63 +39,45 @@ export default class Edit extends Component {
         return (
             <div style={{ marginTop: 10 }}>
                 <h3>User Info</h3>
+
+                {/* <nav className="navbar navbar-light bg-light" style={{ marginBottom:10}}>
+                    <a className="navbar-brand">Default</a>
+                </nav> */}
+
                 <table className="table table-bordered table-striped bm-table-detail">
                     <tbody>
                         <tr>
                             <td className="bm-td-half"><label className="bm-word-break-label">ID</label></td>
-                            <td>20180726_user</td>
+                            <td>{this.state.username}</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">Name</label></td>
-                            <td></td>
+                            <td>{this.state.name}</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">Description</label></td>
-                            <td></td>
+                            <td>{this.state.description}</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">Email Address</label></td>
-                            <td>
-                            </td>
+                            <td>{this.state.email}</td>
                         </tr>
-                        <tr>
-                            <td className="bm-word-break-label">
-                                <label>Azure AD Email Address</label>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td><label className="bm-word-break-label">Azure AD Registration</label></td>
-                            <td>Unregistered</td>
-                        </tr>
-                        <tr>
-                            <td><label className="bm-word-break-label">EMM Registration</label></td>
-                            <td>Registered</td>
-                        </tr>
-                        <tr>
-                            <td><label className="bm-word-break-label">VPP Registration</label></td>
-                            <td>Registered</td>
-                        </tr>
-
                         <tr>
                             <td><label className="bm-word-break-label">Password</label></td>
-                            <td></td>
+                            <td>********</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">Passcode</label></td>
-                            <td></td>
+                            <td>********</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">No. of Device(s)</label></td>
-                            <td>
-                                0                    </td>
+                            <td>{this.state.devices}</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">No. of Organization<span className="bm-label-s-lower">(s)</span></label></td>
                             <td>
-                                0                    </td>
+                                {this.state.organization} </td>
                         </tr>
                     </tbody>
                 </table>
