@@ -112,3 +112,7 @@ body {
 .btn-delete:hover{
   text-decoration: underline;
 }
+.invalid-feedback{
+  font-weight: bold;
+  font-size: 100%;
+}

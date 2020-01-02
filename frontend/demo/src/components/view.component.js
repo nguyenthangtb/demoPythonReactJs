@@ -17,11 +17,15 @@ export default class Edit extends Component {
         }
     }
 
+    goback(){
+       //this.props.history.push('/user');
+    }
+
     componentDidMount() {
         this.onUserDetail();
     }
 
-    onUserDetail(){
+    onUserDetail() {
         axios.get('http://127.0.0.1:5000/user/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
@@ -49,9 +53,10 @@ export default class Edit extends Component {
                 <h3>User Info</h3>
 
                 <nav className="navbar navbar-light bg-light pull-right" style={{ marginBottom: 10 }}>
-                    <input type="button"
+                    <button type="button"
                         value="Go Back"
-                        className="btn btn-secondary btn-cancel" />
+                        className="btn btn-secondary btn-cancel" onClick={this.goback}>Go Back</button>
+                   
                     <a href={"/edit/" + this.state.id} className="btn btn-primary">Edit</a>
                 </nav>
 
@@ -75,11 +80,11 @@ export default class Edit extends Component {
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">Password</label></td>
-                            <td>********</td>
+                            <td>{(this.state.password === '') ? '' : '******'}</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">Passcode</label></td>
-                            <td>********</td>
+                            <td>{(this.state.passcode === '') ? '' : '******'}</td>
                         </tr>
                         <tr>
                             <td><label className="bm-word-break-label">No. of Device(s)</label></td>

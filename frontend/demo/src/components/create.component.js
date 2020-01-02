@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Validator from './../lib/validator';
+
 
 export default class Create extends Component {
     constructor(props) {
@@ -12,28 +14,46 @@ export default class Create extends Component {
         this.onChangepasscode = this.onChangepasscode.bind(this);
         this.onChangedevices = this.onChangedevices.bind(this);
         this.onChangeorganization = this.onChangeorganization.bind(this);
-
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             username: '',
-            name: '', 
+            name: '',
             description: '',
             email: '',
             password: '',
             passcode: '',
             devices: '',
-            organization: ''
+            organization: '',
+            errors: {}
         }
+
+        const rules = [
+            {
+                field: 'username',
+                method: 'isEmpty',
+                validWhen: false,
+                message: 'The user name field is required.',
+            },
+            {
+                field: 'email',
+                method: 'isEmail',
+                validWhen: true,
+                message: 'The email must be a valid email address.',
+            },
+
+        ];
+        this.validator = new Validator(rules);
     }
 
     onChangeusername(e) {
         this.setState({
-            username: e.target.value
+             username: e.target.value
+            // /[e.target.username]: e.target.value
         });
     }
 
-    onChangename(e){
+    onChangename(e) {
         this.setState({
             name: e.target.value
         });
@@ -74,38 +94,43 @@ export default class Create extends Component {
             organization: e.target.value
         });
     }
-    
+
     onSubmit(e) {
         e.preventDefault();
+        this.setState({
+            errors: this.validator.validate(this.state),
+        });
+        if (this.validator.isValid) {
+            const obj = {
+                username: this.state.username,
+                name: this.state.name,
+                description: this.state.description,
+                email: this.state.email,
+                password: this.state.password,
+                passcode: this.state.passcode,
+                devices: this.state.devices,
+                organization: this.state.organization
+            };
+            axios.post('http://127.0.0.1:5000/user', obj)
+                .then(res => console.log(res.data));
 
-        const obj = {
-            username: this.state.username,
-            name: this.state.name,
-            description: this.state.description,
-            email: this.state.email,
-            password: this.state.password,
-            passcode: this.state.passcode,
-            devices: this.state.devices,
-            organization: this.state.organization
-        };
-        axios.post('http://127.0.0.1:5000/user', obj)
-            .then(res => console.log(res.data));
-            
             this.props.history.push('/user');
 
-        this.setState({
-            username: '',
-            name: '',
-            description: '',
-            email: '',
-            password: '',
-            passcode: '',
-            devices: '',
-            organization: '',
-        })
+            this.setState({
+                username: '',
+                name: '',
+                description: '',
+                email: '',
+                password: '',
+                passcode: '',
+                devices: '',
+                organization: '',
+            })
+        }
     }
 
     render() {
+        const { errors } = this.state;
         return (
             <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <h3>Add New</h3>
@@ -116,42 +141,46 @@ export default class Create extends Component {
                             value={this.state.username}
                             onChange={this.onChangeusername}
                         />
+                        {errors.username &&
+                            <div className="invalid-feedback" style={{ display: 'block' }}>{errors.username}</div>}
                     </div>
                     <div className="form-group">
                         <label>Name: </label>
                         <input type="text" className="form-control" placeholder="User's Name"
-                        value={this.state.name} onChange={this.onChangename}/>
+                            value={this.state.name} onChange={this.onChangename} />
                     </div>
                     <div className="form-group">
                         <label>Description: </label>
                         <input type="text" className="form-control" value={this.state.description}
-                            onChange={this.onChangedescription}  placeholder="Free text description"/>
+                            onChange={this.onChangedescription} placeholder="Free text description" />
                     </div>
                     <div className="form-group">
                         <label>Email Address: </label>
                         <input type="text" className="form-control" value={this.state.email}
-                            onChange={this.onChangeemail}  placeholder="User's Email Address"/>
+                            onChange={this.onChangeemail} placeholder="User's Email Address" />
+                        {errors.email &&
+                            <div className="invalid-feedback" style={{ display: 'block' }}>{errors.email}</div>}
                     </div>
                     <div className="form-group">
                         <label>PassWord: </label>
                         <input type="password" className="form-control" value={this.state.password}
-                            onChange={this.onChangepassword} placeholder="Password for BizMobile Go! Personal Web"/>
+                            onChange={this.onChangepassword} placeholder="Password for BizMobile Go! Personal Web" />
                     </div>
                     <div className="form-group">
                         <label>Passcode: </label>
                         <input type="password" className="form-control" value={this.state.passcode}
-                            onChange={this.onChangepasscode} placeholder="Password for BizMobile Go! Personal Web"/>
+                            onChange={this.onChangepasscode} placeholder="Password for BizMobile Go! Personal Web" />
                     </div>
                     <div className="form-group">
                         <label>Device(s): </label>
 
-                        <input type="text" className="form-control"  placeholder="Select Devices(s)" 
-                        value={this.state.devices} onChange={this.onChangedevices} />
+                        <input type="text" className="form-control" placeholder="Select Devices(s)"
+                            value={this.state.devices} onChange={this.onChangedevices} />
                     </div>
                     <div className="form-group">
                         <label>Organization(s): </label>
-                        <input type="text" className="form-control"placeholder="Select Organization(s)" 
-                        value={this.state.organization} onChange={this.onChangeorganization}/>
+                        <input type="text" className="form-control" placeholder="Select Organization(s)"
+                            value={this.state.organization} onChange={this.onChangeorganization} />
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Save" className="btn btn-primary" />
