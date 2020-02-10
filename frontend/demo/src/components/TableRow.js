@@ -5,6 +5,7 @@ import axios from 'axios'
 class TableRow extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.delete = this.delete.bind(this);
     }
 
