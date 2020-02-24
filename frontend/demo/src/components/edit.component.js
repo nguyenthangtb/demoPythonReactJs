@@ -18,7 +18,7 @@ export default class Edit extends Component {
         this.state = {
             username: '',
             name: '',
-            description: '',
+            Description: '',
             email: '',
             password: '',
             passcode: '',
@@ -28,12 +28,12 @@ export default class Edit extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:5000/user/' + this.props.match.params.id)
+        axios.get('http://127.0.0.1:8000/api/users/' + this.props.match.params.id + '/')
             .then(response => {
                 this.setState({
                     username: response.data.username,
                     name: response.data.name,
-                    description: response.data.description,
+                    Description: response.data.Description,
                     email: response.data.email,
                     password: response.data.password,
                     passcode: response.data.passcode,
@@ -61,7 +61,7 @@ export default class Edit extends Component {
 
     onChangedescription(e) {
         this.setState({
-            description: e.target.value
+            Description: e.target.value
         });
     }
 
@@ -100,14 +100,14 @@ export default class Edit extends Component {
         const obj = {
             username: this.state.username,
             name: this.state.name,
-            description: this.state.description,
+            Description: this.state.Description,
             email: this.state.email,
             password: this.state.password,
             passcode: this.state.passcode,
             devices: this.state.devices,
             organization: this.state.organization
         };
-        axios.put('http://127.0.0.1:5000/user/' + this.props.match.params.id, obj)
+        axios.put('http://127.0.0.1:8000/api/users/' + this.props.match.params.id +'/', obj)
             .then(res => console.log(res.data));
 
         this.props.history.push('/user');
@@ -132,7 +132,7 @@ export default class Edit extends Component {
                     </div>
                     <div className="form-group">
                         <label>Description: </label>
-                        <input type="text" className="form-control" value={this.state.description}
+                        <input type="text" className="form-control" value={this.state.Description}
                             onChange={this.onChangedescription}  placeholder="Free text description"/>
                     </div>
                     <div className="form-group">

@@ -26,7 +26,7 @@ export default class Edit extends Component {
     }
 
     onUserDetail() {
-        axios.get('http://127.0.0.1:5000/user/' + this.props.match.params.id)
+        axios.get('http://127.0.0.1:8000/api/users/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     id: response.data.id,

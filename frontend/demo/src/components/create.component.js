@@ -19,7 +19,7 @@ export default class Create extends Component {
         this.state = {
             username: '',
             name: '',
-            description: '',
+            Description: '',
             email: '',
             password: '',
             passcode: '',
@@ -61,7 +61,7 @@ export default class Create extends Component {
 
     onChangedescription(e) {
         this.setState({
-            description: e.target.value
+            Description: e.target.value
         });
     }
 
@@ -104,14 +104,14 @@ export default class Create extends Component {
             const obj = {
                 username: this.state.username,
                 name: this.state.name,
-                description: this.state.description,
+                Description: this.state.Description,
                 email: this.state.email,
                 password: this.state.password,
                 passcode: this.state.passcode,
                 devices: this.state.devices,
                 organization: this.state.organization
             };
-            axios.post('http://127.0.0.1:5000/user', obj)
+            axios.post('http://127.0.0.1:8000/api/users', obj)
                 .then(res => console.log(res.data));
 
             this.props.history.push('/user');
@@ -119,7 +119,7 @@ export default class Create extends Component {
             this.setState({
                 username: '',
                 name: '',
-                description: '',
+                Description: '',
                 email: '',
                 password: '',
                 passcode: '',
@@ -151,7 +151,7 @@ export default class Create extends Component {
                     </div>
                     <div className="form-group">
                         <label>Description: </label>
-                        <input type="text" className="form-control" value={this.state.description}
+                        <input type="text" className="form-control" value={this.state.Description}
                             onChange={this.onChangedescription} placeholder="Free text description" />
                     </div>
                     <div className="form-group">

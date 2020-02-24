@@ -10,7 +10,7 @@ class TableRow extends Component {
     }
 
     delete() {
-        axios.delete('http://127.0.0.1:5000/user/' + this.props.obj.id)
+        axios.delete('http://127.0.0.1:8000/api/users/' + this.props.obj.id)
             .then(res => {
                 if (res.data.status === 200) {
                     alert(res.data.mesg);
